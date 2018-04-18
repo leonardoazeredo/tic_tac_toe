@@ -23,7 +23,14 @@ class Board
     end
   end
 
-  def diagonal_win?; end
+  def diagonal_win?(marker)
+    ((0...WIDTH).all? do |i|
+      @grid[i][i] == marker
+    end) ||
+      ((0...WIDTH).all? do |i|
+        @grid[i][WIDTH - 1 - i] == marker
+      end)
+  end
 
   def print_grid
     @grid.each do |row|
@@ -34,7 +41,6 @@ class Board
     end
     puts
   end
-
 end
 
 def print_and_check
@@ -43,13 +49,14 @@ def print_and_check
   puts "Row with all Os: #{@b.row_win?(:O)}"
   puts "Column with all Xs: #{@b.column_win?(:X)}"
   puts "Column with all Os: #{@b.column_win?(:O)}"
-
+  puts "Diagonal with all Xs: #{@b.diagonal_win?(:X)}"
+  puts "Diagonal with all Os: #{@b.diagonal_win?(:O)}"
 end
 
 @b = Board.new
-@b.grid[0][1] = :X
+@b.grid[0][2] = :X
 print_and_check
 @b.grid[1][1] = :X
 print_and_check
-@b.grid[2][1] = :X
+@b.grid[2][0] = :X
 print_and_check
