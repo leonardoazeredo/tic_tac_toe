@@ -15,9 +15,15 @@ class Board
     end
   end
 
-  def collumn_win?; end
+  def column_win?(marker)
+    (0...WIDTH).any? do |column|
+      @grid.all? do |row|
+        row[column] == marker
+      end
+    end
+  end
 
-  def digonal_win?; end
+  def diagonal_win?; end
 
   def print_grid
     @grid.each do |row|
