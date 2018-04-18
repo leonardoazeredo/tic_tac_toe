@@ -39,13 +39,17 @@ end
 
 def print_and_check
   @b.print_grid
-  p @b.row_win?(:X)
+  puts "Row with all Xs: #{@b.row_win?(:X)}"
+  puts "Row with all Os: #{@b.row_win?(:O)}"
+  puts "Column with all Xs: #{@b.column_win?(:X)}"
+  puts "Column with all Os: #{@b.column_win?(:O)}"
+
 end
 
 @b = Board.new
-@b.grid[0][0] = :X
-print_and_check
 @b.grid[0][1] = :X
 print_and_check
-@b.grid[0][2] = :X
+@b.grid[1][1] = :X
+print_and_check
+@b.grid[2][1] = :X
 print_and_check
