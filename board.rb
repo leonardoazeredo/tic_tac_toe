@@ -1,6 +1,7 @@
 class Board
   attr_accessor :grid
 
+  HEIGHT = 3
   WIDTH = HEIGHT
   def initialize
     @grid = Array.new(3) { Array.new(3, :" ") }
