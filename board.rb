@@ -5,10 +5,10 @@ class Board
     @grid = Array.new(3) { Array.new(3, :" ") }
   end
 
-  def row_win?
+  def row_win?(marker)
     @grid.any? do |row|
       row.all? do |cell|
-        cell == :X
+        cell == marker
       end
     end
   end
@@ -27,16 +27,17 @@ class Board
     puts
   end
 
-  b = Board.new
-  b.print_grid
-  b.grid[0][0] = :X
-  b.print_grid
-  p b.row_win?
-  b.grid[0][1] = :X
-  b.print_grid
-  p b.row_win?
-  b.grid[0][2] = :X
-  b.print_grid
-  p b.row_win?
-
 end
+
+def print_and_check
+  @b.print_grid
+  p @b.row_win?(:X)
+end
+
+@b = Board.new
+@b.grid[0][0] = :X
+print_and_check
+@b.grid[0][1] = :X
+print_and_check
+@b.grid[0][2] = :X
+print_and_check
