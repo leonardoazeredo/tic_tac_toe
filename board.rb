@@ -4,7 +4,7 @@ class Board
   HEIGHT = 3
   WIDTH = HEIGHT
   def initialize
-    @grid = Array.new(3) { Array.new(3, :" ") }
+    @grid = Array.new(HEIGHT) { Array.new(WIDTH, :" ") }
   end
 
   def row_win?(marker)
