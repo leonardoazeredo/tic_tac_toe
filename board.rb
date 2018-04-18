@@ -1,8 +1,11 @@
 class Board
+  HEIGHT = 3
+  WIDTH = HEIGHT
+  
   attr_accessor :grid
 
   def initialize
-    @grid = Array.new(3) { Array.new(3, :" ") }
+    @grid = Array.new(HEIGHT) { Array.new(WIDTH, :" ") }
   end
 
   def print_grid
