@@ -47,6 +47,19 @@ class Board
     end
     puts
   end
+
+  def [](y,x)
+    @grid[y][x]
+  end
+
+  def []=(y,x,something)
+    if @grid[y][x] != " " && [:X,:O].include?(something)
+      @grid[y][x] = something
+    else
+      false
+    end
+  end
+
 end
 
 def print_and_check
@@ -60,9 +73,9 @@ def print_and_check
 end
 
 @b = Board.new
-@b.grid[0][0] = :X
+@b[0,0] = :X
 print_and_check
-@b.grid[1][1] = :X
+@b[1,1] = :X
 print_and_check
-@b.grid[2][2] = :X
+@b[2,2] = :X
 print_and_check
