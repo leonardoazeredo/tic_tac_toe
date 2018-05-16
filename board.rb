@@ -2,13 +2,18 @@ class Board
   HEIGHT = 3
   WIDTH = HEIGHT
 
-  attr_accessor :grid
-
-  HEIGHT = 3
-  WIDTH = HEIGHT
-
   def initialize
     @grid = Array.new(HEIGHT) { Array.new(WIDTH, :" ") }
+  end
+
+  def print_grid
+    @grid.each do |row|
+      puts
+      row.each do |cell|
+        print "[#{cell}]"
+      end
+    end
+    puts
   end
 
   def row_win?(marker)
@@ -29,8 +34,8 @@ class Board
 
   def diagonal_win?(marker)
     [
-      ->(i) { i },
-      ->(i) { -(i + 1) }
+      lambda{|i| i },
+      lambda{|i| -(i + 1) }
     ].any? do |proc|
       (0...HEIGHT).all? do |i|
         @grid[i][proc.call(i)] == marker
@@ -38,23 +43,13 @@ class Board
     end
   end
 
-  def print_grid
-    @grid.each do |row|
-      puts
-      row.each do |cell|
-        print "[#{cell}]"
-      end
-    end
-    puts
-  end
-
   def [](y, x)
     @grid[y][x]
   end
 
-  def []=(y, x, something)
-    if @grid[y][x] != ' ' && %i[X O].include?(something)
-      @grid[y][x] = something
+  def []=(y, x, marker)
+    if @grid[y][x] == :" " && [:X, :O].include?(marker)
+      @grid[y][x] = marker
     else
       false
     end

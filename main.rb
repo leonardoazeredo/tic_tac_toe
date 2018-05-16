@@ -7,3 +7,10 @@ puts players = [
 ]
 
 p game = Game.new(players)
+
+puts 'Welcome to tic tac toe.'
+puts "It is player one's turn."
+puts game.print_board
+puts 'Player one, pick a move.'
+puts game.play_turn(players[0])
+puts game.print_board
