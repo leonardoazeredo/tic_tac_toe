@@ -6,6 +6,7 @@ class Board
 
   HEIGHT = 3
   WIDTH = HEIGHT
+
   def initialize
     @grid = Array.new(HEIGHT) { Array.new(WIDTH, :" ") }
   end
@@ -28,12 +29,11 @@ class Board
 
   def diagonal_win?(marker)
     [
-        lambda{|i| i},
-        lambda {|i| -(i+1)}
+      ->(i) { i },
+      ->(i) { -(i + 1) }
     ].any? do |proc|
       (0...HEIGHT).all? do |i|
         @grid[i][proc.call(i)] == marker
-
       end
     end
   end
@@ -48,20 +48,21 @@ class Board
     puts
   end
 
-  def [](y,x)
+  def [](y, x)
     @grid[y][x]
   end
 
-  def []=(y,x,something)
-    if @grid[y][x] != " " && [:X,:O].include?(something)
+  def []=(y, x, something)
+    if @grid[y][x] != ' ' && %i[X O].include?(something)
       @grid[y][x] = something
     else
       false
     end
   end
-def winner?(marker)
-  row_win?(marker) || column_win?(marker) || diagonal_win?(marker)
-end
+
+  def winner?(marker)
+    row_win?(marker) || column_win?(marker) || diagonal_win?(marker)
+  end
 end
 #
 # def print_and_check
