@@ -59,23 +59,25 @@ class Board
       false
     end
   end
-
+def winner?(marker)
+  row_win?(marker) || column_win?(marker) || diagonal_win?(marker)
 end
-
-def print_and_check
-  @b.print_grid
-  puts "Row with all Xs: #{@b.row_win?(:X)}"
-  puts "Row with all Os: #{@b.row_win?(:O)}"
-  puts "Column with all Xs: #{@b.column_win?(:X)}"
-  puts "Column with all Os: #{@b.column_win?(:O)}"
-  puts "Diagonal with all Xs: #{@b.diagonal_win?(:X)}"
-  puts "Diagonal with all Os: #{@b.diagonal_win?(:O)}"
 end
-
-@b = Board.new
-@b[0,0] = :X
-print_and_check
-@b[1,1] = :X
-print_and_check
-@b[2,2] = :X
-print_and_check
+#
+# def print_and_check
+#   @b.print_grid
+#   puts "Row with all Xs: #{@b.row_win?(:X)}"
+#   puts "Row with all Os: #{@b.row_win?(:O)}"
+#   puts "Column with all Xs: #{@b.column_win?(:X)}"
+#   puts "Column with all Os: #{@b.column_win?(:O)}"
+#   puts "Diagonal with all Xs: #{@b.diagonal_win?(:X)}"
+#   puts "Diagonal with all Os: #{@b.diagonal_win?(:O)}"
+# end
+#
+# @b = Board.new
+# @b[0,0] = :X
+# print_and_check
+# @b[1,1] = :X
+# print_and_check
+# @b[2,2] = :X
+# print_and_check
