@@ -7,7 +7,45 @@ class Board
   end
 
   def display
-      @grid.reduce("\n") {|output, row| output << format_row(row)} << "\n"
+    output = "\n"
+    output << generate_header
+    output << generate_rows
+    output << "\n"
+  end
+
+  def [](y, x)
+    @grid[y][x]
+  end
+
+  def []=(y, x, marker)
+    if @grid[y][x] == :" " && %i[X O].include?(marker)
+      @grid[y][x] = marker
+    else
+      false
+    end
+  end
+
+  def winner?(marker)
+    row_win?(marker) || column_win?(marker) || diagonal_win?(marker)
+  end
+
+  private
+
+  def format_row(row, letter)
+    row.reduce(" #{letter}") { |row_string, cell| row_string << "[#{cell}]" } << "\n"
+  end
+
+  def generate_header
+    (1..WIDTH).reduce(' ') { |header, row_number| header << "  #{row_number}" } << "\n"
+  end
+
+  def generate_rows
+    # @.next = A
+    letter = '@'
+    @grid.reduce('') do |output, row|
+      letter.next!
+      output << format_row(row, letter)
+    end
   end
 
   def row_win?(marker)
@@ -36,28 +74,6 @@ class Board
       end
     end
   end
-
-  def [](y, x)
-    @grid[y][x]
-  end
-
-  def []=(y, x, marker)
-    if @grid[y][x] == :" " && %i[X O].include?(marker)
-      @grid[y][x] = marker
-    else
-      false
-    end
-  end
-
-  def winner?(marker)
-    row_win?(marker) || column_win?(marker) || diagonal_win?(marker)
-  end
-
-  private
-  def format_row(row)
-    row.reduce("") { |row_string, cell| row_string << "[#{cell}]"} << "\n"
-  end
-
 end
 #
 # def print_and_check
