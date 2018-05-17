@@ -13,8 +13,8 @@ class Game
     p @board.winner?(player.marker)
   end
 
-  def print_board
-    @board.print_grid
+  def display_board
+    @board.display
   end
 
 end

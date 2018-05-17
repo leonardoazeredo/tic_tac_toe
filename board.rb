@@ -6,14 +6,8 @@ class Board
     @grid = Array.new(HEIGHT) { Array.new(WIDTH, :" ") }
   end
 
-  def print_grid
-    @grid.each do |row|
-      puts
-      row.each do |cell|
-        print "[#{cell}]"
-      end
-    end
-    puts
+  def display
+      @grid.reduce("\n") {|output, row| output << format_row(row)} << "\n"
   end
 
   def row_win?(marker)
@@ -34,8 +28,8 @@ class Board
 
   def diagonal_win?(marker)
     [
-      lambda{|i| i },
-      lambda{|i| -(i + 1) }
+      ->(i) { i },
+      ->(i) { -(i + 1) }
     ].any? do |proc|
       (0...HEIGHT).all? do |i|
         @grid[i][proc.call(i)] == marker
@@ -48,7 +42,7 @@ class Board
   end
 
   def []=(y, x, marker)
-    if @grid[y][x] == :" " && [:X, :O].include?(marker)
+    if @grid[y][x] == :" " && %i[X O].include?(marker)
       @grid[y][x] = marker
     else
       false
@@ -58,10 +52,16 @@ class Board
   def winner?(marker)
     row_win?(marker) || column_win?(marker) || diagonal_win?(marker)
   end
+
+  private
+  def format_row(row)
+    row.reduce("") { |row_string, cell| row_string << "[#{cell}]"} << "\n"
+  end
+
 end
 #
 # def print_and_check
-#   @b.print_grid
+#   @b.display
 #   puts "Row with all Xs: #{@b.row_win?(:X)}"
 #   puts "Row with all Os: #{@b.row_win?(:O)}"
 #   puts "Column with all Xs: #{@b.column_win?(:X)}"
