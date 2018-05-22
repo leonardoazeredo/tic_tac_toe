@@ -13,18 +13,32 @@ class Player
   end
 
   def get_row
-    choice_promp('row')
-    ROW_MAP[gets[0].upcase.to_sym]
+    loop do
+      choice_prompt('row')
+      input = gets
+      choice = translate_row(input)
+      return choice if choice
+      puts "Invalid row"
+    end
+  end
+
+  def translate_row(input)
+    choice = ROW_MAP[input[0].upcase.to_sym]
+    validate_choice(choice)
   end
 
   def get_col
-    choice_promp('col')
+    choice_prompt('col')
     gets.to_i - 1
   end
 
-  def choice_promp(string)
+  def choice_prompt(string)
     puts 'pick a ${string}'
     print '> '
+  end
+
+  def validate_choice(choice)
+    choice if (0..2).include?(choice)
   end
 
 end
