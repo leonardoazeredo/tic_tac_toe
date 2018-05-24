@@ -14,31 +14,37 @@ class Player
 
   def get_row
     loop do
-      choice_prompt('row')
+      prompt_choice('row')
       input = gets
       choice = translate_row(input)
-      return choice if choice
+      return choice if in_bounds?(choice)
       puts "Invalid row"
     end
   end
 
-  def translate_row(input)
-    choice = ROW_MAP[input[0].upcase.to_sym]
-    validate_choice(choice)
-  end
-
   def get_col
-    choice_prompt('col')
-    gets.to_i - 1
+    prompt_choice('col')
+    input = gets
+    choice = translate_col(input)
+    returns choice if in_bounds?(choice)
+    puts "Invalid col"
   end
 
-  def choice_prompt(string)
-    puts 'pick a ${string}'
+  def translate_row(input)
+    ROW_MAP[input[0].upcase.to_sym]
+  end
+
+  def translate_col(input)
+    input.to_i - 1
+  end
+
+  def prompt_choice(prompt)
+    puts "pick a ${prompt}"
     print '> '
   end
 
-  def validate_choice(choice)
-    choice if (0..2).include?(choice)
+  def in_bounds?(choice)
+    (0..2).include?(choice)
   end
 
 end
