@@ -13,22 +13,25 @@ class Player
   end
 
   def get_move
-    [get_coordinate(:row), get_coordinate(:column)]
+    TRANSLATIONS.map do |row_or_column, translator|
+      get_coordinate(row_or_column, translator)
+    end
   end
 
-  def get_coordinate(row_or_column)
+  private
+
+  def get_coordinate(row_or_column, translator)
     loop do
-      prompt_choice(row_or_column)
+      print prompt_choice(row_or_column)
       input = gets
-      choice = TRANSLATIONS[row_or_column].call(input)
+      choice = translator.call(input)
       return choice if in_bounds?(choice)
       puts "Invalid #{row_or_column}"
     end
   end
 
-  def prompt_choice(prompt)
-    puts "pick a #{prompt}"
-    print '> '
+  def prompt_choice(row_or_column)
+    "Pick a #{row_or_column}\n>"
   end
 
   def in_bounds?(choice)

@@ -25,7 +25,8 @@ class Board
     end
   end
 
-  def winner?(marker)
+  def winner?(player)
+    marker = player.marker
     row_win?(marker) || column_win?(marker) || diagonal_win?(marker)
   end
 
