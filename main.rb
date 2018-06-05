@@ -10,5 +10,4 @@ game = Game.new(players)
 
 puts 'Welcome to tic tac toe.'
 winner = game.play_until_end
-
-puts "#{winner.name} won!"
+puts "#{winner} won!"

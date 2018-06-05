@@ -1,10 +1,12 @@
 class Player
+
   ROW_MAP = (:A..:C).zip(0..2).to_h
-  TRANSLATIONS = {
+  TRANSLATORS = {
     row: ->(input) { ROW_MAP[input[0].upcase.to_sym] },
     column: ->(input) { input.to_i - 1 }
-  }.freeze
-  attr_reader :marker
+  }
+
+  attr_reader :name, :marker
 
   def initialize(name, marker)
     @name = name
@@ -13,7 +15,7 @@ class Player
   end
 
   def get_move
-    TRANSLATIONS.map do |row_or_column, translator|
+    TRANSLATORS.map do |row_or_column, translator|
       get_coordinate(row_or_column, translator)
     end
   end
@@ -35,6 +37,6 @@ class Player
   end
 
   def in_bounds?(choice)
-    (0..2).cover?(choice)
+    (0..2).include?(choice)
   end
 end

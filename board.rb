@@ -13,16 +13,20 @@ class Board
     output << "\n"
   end
 
-  def [](y, x)
-    @grid[y][x]
+  def spaces_left?
+    @grid.any? do |row|
+      row.any? do |cell|
+        cell == :" "
+      end
+    end
   end
 
-  def []=(y, x, marker)
-    if @grid[y][x] == :" " && %i[X O].include?(marker)
-      @grid[y][x] = marker
-    else
-      false
-    end
+  def place_marker(coordinates, marker)
+    x, y = coordinates
+    @grid[y][x] = marker if @grid[y][x] == :" "
+    # It could be done like this too:
+    # @grid[y][x] == :" " && @grid[y][x] = marker
+    # but for readability, the former seems better
   end
 
   def winner?(player)
@@ -41,7 +45,7 @@ class Board
   end
 
   def generate_rows
-    # @.next = A
+    # @.next == A
     letter = '@'
     @grid.reduce('') do |output, row|
       letter.next!
@@ -69,28 +73,10 @@ class Board
     [
       ->(i) { i },
       ->(i) { -(i + 1) }
-    ].any? do |proc|
-      (0...HEIGHT).all? do |i|
-        @grid[i][proc.call(i)] == marker
+    ].any? do |match_to_column|
+      (0...HEIGHT).all? do |row_index|
+        @grid[row_index][match_to_column.call(row_index)] == marker
       end
     end
   end
 end
-#
-# def print_and_check
-#   @b.display
-#   puts "Row with all Xs: #{@b.row_win?(:X)}"
-#   puts "Row with all Os: #{@b.row_win?(:O)}"
-#   puts "Column with all Xs: #{@b.column_win?(:X)}"
-#   puts "Column with all Os: #{@b.column_win?(:O)}"
-#   puts "Diagonal with all Xs: #{@b.diagonal_win?(:X)}"
-#   puts "Diagonal with all Os: #{@b.diagonal_win?(:O)}"
-# end
-#
-# @b = Board.new
-# @b[0,0] = :X
-# print_and_check
-# @b[1,1] = :X
-# print_and_check
-# @b[2,2] = :X
-# print_and_check
