@@ -1,6 +1,6 @@
 class Board
-  HEIGHT = 3
-  WIDTH = HEIGHT
+  WIDTH = 3
+  HEIGHT = WIDTH
 
   def initialize
     @grid = Array.new(HEIGHT) { Array.new(WIDTH, :" ") }
@@ -22,7 +22,7 @@ class Board
   end
 
   def place_marker(coordinates, marker)
-    x, y = coordinates
+    y, x = coordinates
     @grid[y][x] = marker if @grid[y][x] == :" "
     # It could be done like this too:
     # @grid[y][x] == :" " && @grid[y][x] = marker
