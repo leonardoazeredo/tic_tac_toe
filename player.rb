@@ -1,12 +1,15 @@
 class Player
-
   ROW_MAP = (:A..:C).zip(0..2).to_h
   TRANSLATORS = {
     row: ->(input) { ROW_MAP[input[0].upcase.to_sym] },
     column: ->(input) { input.to_i - 1 }
   }
 
-  attr_reader :name, :marker
+  attr_reader :name, :marker, :score
+
+  def increment_score
+    @score += 1
+  end
 
   def initialize(name, marker)
     @name = name
@@ -37,6 +40,6 @@ class Player
   end
 
   def in_bounds?(choice)
-    (0..2).include?(choice)
+    (0..2).cover?(choice)
   end
 end
