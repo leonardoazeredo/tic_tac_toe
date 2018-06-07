@@ -3,7 +3,7 @@ require_relative 'game'
 
 class Session
   def initialize
-    puts 'Welcome to tic tac toe.'
+
     @players = [
       Player.new('Leo', :X),
       Player.new('Gi', :O)
@@ -15,6 +15,7 @@ class Session
   private
 
   def play_loop
+    puts 'Welcome to tic tac toe.'
     loop do
       puts 'Starting a new game!'
       play_a_game
