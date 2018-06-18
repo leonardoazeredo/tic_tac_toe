@@ -2,6 +2,8 @@ class Board
   WIDTH = 3
   HEIGHT = WIDTH
 
+
+
   def initialize
     @grid = Array.new(HEIGHT) { Array.new(WIDTH, :" ") }
   end
